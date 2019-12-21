@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+
+    <Button
+        android:id="@+id/buttonNormalInitDb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="正常初始化DB" />
+
+    <Button
+        android:id="@+id/buttonNormalInsetData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="正常插入数据" />
+
+    <Button
+        android:id="@+id/buttonNormalReadData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="正常读取数据" />
+
+    <Button
+        android:id="@+id/buttonWcdbEncryptedDb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WCDB加密数据库" />
+
+    <Button
+        android:id="@+id/buttonOpenWcdbEncryptedDb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="读取WCDB加密数据库数据" />
+
+    <Button
+        android:id="@+id/buttonNetSqlcipherEncryptedDb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NetSqlcipher加密数据库" />
+
+    <Button
+        android:id="@+id/buttonOpenNetSqlcipherEncryptedDb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="读取NetSqlcipher加密数据库数据" />
+
+
+    <TextView
+        android:id="@+id/resultData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hello World!" />
+
+</LinearLayout>

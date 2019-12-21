@@ -46,4 +46,7 @@ dependencies {
     implementation 'com.tencent.wcdb:room:1.0.8'
     kapt 'android.arch.persistence.room:compiler:1.1.1' // compiler 需要用 room 的
     implementation 'com.tencent.wcdb:wcdb-android:1.0.8'
+
+
+    implementation 'com.dianping.android.sdk:logan:1.2.3'
 }

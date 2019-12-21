@@ -3,6 +3,7 @@ package com.example.testdbflow
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.dianping.logan.Logan
 import com.raizlabs.android.dbflow.config.DatabaseConfig
 import com.raizlabs.android.dbflow.config.FlowConfig
 import com.raizlabs.android.dbflow.config.FlowManager
@@ -10,6 +11,7 @@ import com.raizlabs.android.dbflow.kotlinextensions.list
 import com.raizlabs.android.dbflow.kotlinextensions.save
 import com.raizlabs.android.dbflow.sql.language.Select
 import kotlinx.android.synthetic.main.activity_main.*
+import java.lang.Exception
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        Logan.w("APP START", 2)
         buttonNormalInitDb.setOnClickListener {
             FlowManager.init(FlowConfig.Builder(this)
                  .openDatabasesOnInit(true)
@@ -33,12 +35,11 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "data created", Toast.LENGTH_SHORT).show()
         }
 
-        buttonNormalReadData.setOnClickListener {
-            val datas = Select().from(User::class.java).list
+        buttonNormalReadData.setOnClickListener { val datas = Select().from(User::class.java).list
             resultData.text= "result:\n$datas"
         }
         buttonWcdbEncryptedDb.setOnClickListener {
-            FlowManager.getDatabase(AppDatabase::class.java).close()
+            closeDb()
             WcdbEncryptedDBHelper.test()
         }
 
@@ -62,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         buttonNetSqlcipherEncryptedDb.setOnClickListener {
-            FlowManager.getDatabase(AppDatabase::class.java).close()
+            closeDb()
             NetSqlcipherHelper.test()
         }
 
@@ -86,7 +87,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    private fun closeDb(){
+        try {
+            FlowManager.getDatabase(AppDatabase::class.java).close()
+        }catch (e:Exception){
+            e.printStackTrace()
+            Logan.w(e.message, 2)
+        }
     }
 }

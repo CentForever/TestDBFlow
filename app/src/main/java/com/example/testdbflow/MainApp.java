@@ -41,7 +41,7 @@ public class MainApp extends Application {
                 Log.d(TAG, "clogan > cmd : " + cmd + " | " + "code : " + code);
             }
         });
-        FlowManager.init(this);
+        //FlowManager.init(this);
     }
 
     private void initMarsXLog(){

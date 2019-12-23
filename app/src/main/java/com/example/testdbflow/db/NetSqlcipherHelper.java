@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class NetSqlcipherHelper {
 
-    public static final String DATABASE_NAME = "NetSqlcipher.db";
+    public static final String DATABASE_NAME = "NetSqlcipher";
     private static void ConvertNormalToSQLCipheredDB(Context context, String startingFileName, String endingFileName)
             throws IOException {
         File mStartingFile = context.getDatabasePath(startingFileName);

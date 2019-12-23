@@ -7,9 +7,8 @@ import com.raizlabs.android.dbflow.annotation.PrimaryKey
 import com.raizlabs.android.dbflow.annotation.Table
 import java.util.*
 
-@Database(name = AppDatabase.NAME, version = AppDatabase.VERSION)
+@Database(version = AppDatabase.VERSION)
 object AppDatabase {
-    const val NAME = WcdbEncryptedDBHelper.OLD_DATABASE_NAME
     const val VERSION = WcdbEncryptedDBHelper.DATABASE_VERSION
 }
 

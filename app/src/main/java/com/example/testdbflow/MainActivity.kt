@@ -13,6 +13,7 @@ import com.raizlabs.android.dbflow.config.FlowConfig
 import com.raizlabs.android.dbflow.config.FlowManager
 import com.raizlabs.android.dbflow.kotlinextensions.list
 import com.raizlabs.android.dbflow.kotlinextensions.save
+import com.raizlabs.android.dbflow.sql.language.SQLite
 import com.raizlabs.android.dbflow.sql.language.Select
 import com.tencent.mars.xlog.Log
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Logan.w("APP START", 2)
-        //initDefaultDb()
+        initDefaultDb()
         Log.d("APP START","MainActivity")
         buttonNormalInitDb.setOnClickListener {
             initDefaultDb()
@@ -63,19 +64,6 @@ class MainActivity : AppCompatActivity() {
         buttonOpenWcdbEncryptedDb.setOnClickListener {
             try {
                 closeDb()
-                /*FlowManager.init(FlowConfig.Builder(this)
-                    .openDatabasesOnInit(true)
-                    .addDatabaseConfig(DatabaseConfig.builder(AppDatabase::class.java)
-                        .databaseName(WcdbEncryptedDBHelper.DATABASE_NAME)
-                        .openHelper { databaseDefinition, helperListener ->
-                            SQLCipherHelperImpl(
-                                databaseDefinition,
-                                helperListener
-                            )
-                        }
-                        .build()
-                    )
-                    .build())*/
                 FlowManager.getDatabase(AppDatabase::class.java)
                     .reopen(DatabaseConfig.builder(AppDatabase::class.java)
                         .databaseName(WcdbEncryptedDBHelper.DATABASE_NAME)
@@ -88,8 +76,9 @@ class MainActivity : AppCompatActivity() {
                         .build()
                     )
 
-                val datas = Select().from(User::class.java).list
-                resultData.text= "WCDB Encrypted result:\n$datas"
+                val db=FlowManager.getDatabase(AppDatabase::class.java).writableDatabase
+                val datas=SQLite.select().from(User::class.java).queryList(db)
+                resultData.text= "WCDB Encrypted ${FlowManager.getDatabase(AppDatabase::class.java).databaseName} result:\n$datas"
             }catch (e:Exception){
                 resultData.text= "Exception result:\n${e.message}"
             }
@@ -118,22 +107,9 @@ class MainActivity : AppCompatActivity() {
                         }
                         .build()
                     )
-                /*FlowManager.init(FlowConfig.Builder(this)
-                    .openDatabasesOnInit(true)
-                    .addDatabaseConfig(DatabaseConfig.builder(AppDatabase::class.java)
-                        .databaseName(NetSqlcipherHelper.DATABASE_NAME)
-                        .openHelper { databaseDefinition, helperListener ->
-                            SQLCipherHelperImpl(
-                                databaseDefinition,
-                                helperListener
-                            )
-                        }
-                        .build()
-                    )
-                    .build())*/
-
-                val datas = Select().from(User::class.java).list
-                resultData.text= "NetSqlcipher Encrypted result:\n$datas"
+                val db=FlowManager.getDatabase(AppDatabase::class.java).writableDatabase
+                val datas=SQLite.select().from(User::class.java).queryList(db)
+                resultData.text= "NetSqlcipher Encrypted ${FlowManager.getDatabase(AppDatabase::class.java).databaseName} result:\n$datas"
             }catch (e:Exception){
                 resultData.text= "Exception result:\n${e.message}"
             }
@@ -154,7 +130,7 @@ class MainActivity : AppCompatActivity() {
                 .openDatabasesOnInit(true)
                 .addDatabaseConfig(
                     DatabaseConfig.builder(AppDatabase::class.java)
-                        .databaseName(AppDatabase.NAME).build()
+                        .databaseName(WcdbEncryptedDBHelper.OLD_DATABASE_NAME).build()
                 )
                 .build()
         )

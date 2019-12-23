@@ -52,7 +52,7 @@ public class NetSqlcipherHelper {
             protected Boolean doInBackground(Void... params) {
                 Log.e("mgg","加密zhong");
                 try {
-                    ConvertNormalToSQLCipheredDB(MainApp.application, AppDatabase.NAME+".db",DATABASE_NAME);
+                    ConvertNormalToSQLCipheredDB(MainApp.application, WcdbEncryptedDBHelper.OLD_DATABASE_NAME+".db",DATABASE_NAME);
                     return  true;
                 } catch (IOException e) {
                     e.printStackTrace();

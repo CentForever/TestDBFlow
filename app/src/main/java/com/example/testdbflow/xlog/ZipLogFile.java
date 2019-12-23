@@ -1,13 +1,12 @@
 package com.example.testdbflow.xlog;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
+
+import com.tencent.mars.xlog.Log;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ZipLogFile {
@@ -25,6 +24,8 @@ public class ZipLogFile {
         if (context == null) {
             return null;
         }
+        Log.appenderFlush(true);
+        Log.appenderClose();
         final String fliesDir = context.getApplicationContext().getExternalFilesDir(null).getAbsolutePath();
         final String xlogPath = fliesDir + "/MarsXLog/log";
         final String xlogCachePath = context.getFilesDir() + "/xlog";
@@ -46,7 +47,6 @@ public class ZipLogFile {
             filePaths.add(databases);
             boolean flag = FileUtils.exportZipFromPaths(filePaths, zipFile);
             if (flag) {
-                Log.d(TAG, "zip log file successfully");
                 return zipFile;
             }
         }

@@ -8,3 +8,9 @@ App 数据库使用框架以前使用的是DBFlow，因此做了个数据迁移�
 implementation "net.zetetic:android-database-sqlcipher:${sqlcipher_version}@aar" //加密必要
 implementation 'com.tencent.wcdb:wcdb-android:1.0.8'
 
+
+xlog 日志解密
+
+python decode_mars_crypt_log_file.py /Users/mgg/Desktop/data/user/0/com.example.testdbflow/files/xlog/TestDbFlow_20191223.xlog
+
+

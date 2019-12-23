@@ -25,12 +25,12 @@ import net.sqlcipher.database.SQLiteOpenHelper;
  * Description: The replacement {@link OpenHelper} for SQLCipher. Specify a subclass of this is {@link DatabaseConfig#databaseClass()}
  * of your database to get it to work with specifying the secret you use for the database.
  */
-public abstract class SQLCipherHelperImplEx extends SQLiteOpenHelper implements OpenHelper {
+public abstract class SQLCipherHelperEx extends SQLiteOpenHelper implements OpenHelper {
 
     private DatabaseHelperDelegate databaseHelperDelegate;
     private SQLCipherDatabase cipherDatabase;
 
-    public SQLCipherHelperImplEx(DatabaseDefinition databaseDefinition, DatabaseHelperListener listener) {
+    public SQLCipherHelperEx(DatabaseDefinition databaseDefinition, DatabaseHelperListener listener) {
         super(FlowManager.getContext(), databaseDefinition.isInMemory() ? null : databaseDefinition.getDatabaseFileName(), null, databaseDefinition.getDatabaseVersion()
                 , new SQLiteDatabaseHook() {
                     @Override

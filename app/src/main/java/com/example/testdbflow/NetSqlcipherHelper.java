@@ -2,7 +2,7 @@ package com.example.testdbflow;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
+import com.tencent.mars.xlog.Log;
 import net.sqlcipher.database.SQLiteDatabase;
 import java.io.File;
 import java.io.IOException;

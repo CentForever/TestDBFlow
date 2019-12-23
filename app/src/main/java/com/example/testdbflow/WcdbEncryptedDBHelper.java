@@ -2,8 +2,9 @@ package com.example.testdbflow;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
 
+
+import com.tencent.mars.xlog.Log;
 import com.tencent.wcdb.DatabaseErrorHandler;
 import com.tencent.wcdb.DatabaseUtils;
 import com.tencent.wcdb.database.SQLiteChangeListener;

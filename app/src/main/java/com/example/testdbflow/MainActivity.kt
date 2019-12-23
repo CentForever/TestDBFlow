@@ -10,6 +10,7 @@ import com.raizlabs.android.dbflow.config.FlowManager
 import com.raizlabs.android.dbflow.kotlinextensions.list
 import com.raizlabs.android.dbflow.kotlinextensions.save
 import com.raizlabs.android.dbflow.sql.language.Select
+import com.tencent.mars.xlog.Log
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
 
@@ -20,6 +21,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Logan.w("APP START", 2)
+
+        Log.d("APP START","MainActivity")
         buttonNormalInitDb.setOnClickListener {
             FlowManager.init(FlowConfig.Builder(this)
                  .openDatabasesOnInit(true)
@@ -94,5 +97,10 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
             Logan.w(e.message, 2)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.appenderClose()
     }
 }

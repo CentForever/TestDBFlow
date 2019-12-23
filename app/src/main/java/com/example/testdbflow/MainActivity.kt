@@ -4,6 +4,10 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.dianping.logan.Logan
+import com.example.testdbflow.db.NetSqlcipherHelper
+import com.example.testdbflow.db.SQLCipherHelperImpl
+import com.example.testdbflow.db.WcdbEncryptedDBHelper
+import com.example.testdbflow.xlog.ZipLogFile
 import com.raizlabs.android.dbflow.config.DatabaseConfig
 import com.raizlabs.android.dbflow.config.FlowConfig
 import com.raizlabs.android.dbflow.config.FlowManager
@@ -87,6 +91,10 @@ class MainActivity : AppCompatActivity() {
 
             val datas = Select().from(User::class.java).list
             resultData.text= "Encrypted result:\n$datas"
+        }
+
+        buttonZipLogs.setOnClickListener {
+            ZipLogFile.zipLogFiles(this)
         }
     }
 

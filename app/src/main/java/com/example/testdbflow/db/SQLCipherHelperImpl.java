@@ -1,4 +1,4 @@
-package com.example.testdbflow;
+package com.example.testdbflow.db;
 
 import com.raizlabs.android.dbflow.config.DatabaseDefinition;
 import com.raizlabs.android.dbflow.sqlcipher.SQLCipherOpenHelper;

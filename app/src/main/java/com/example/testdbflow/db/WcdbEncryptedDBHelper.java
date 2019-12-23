@@ -1,9 +1,10 @@
-package com.example.testdbflow;
+package com.example.testdbflow.db;
 
 import android.content.Context;
 import android.os.AsyncTask;
 
 
+import com.example.testdbflow.MainApp;
 import com.tencent.mars.xlog.Log;
 import com.tencent.wcdb.DatabaseErrorHandler;
 import com.tencent.wcdb.DatabaseUtils;

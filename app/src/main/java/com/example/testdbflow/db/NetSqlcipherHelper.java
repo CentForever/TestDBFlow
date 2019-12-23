@@ -1,7 +1,10 @@
-package com.example.testdbflow;
+package com.example.testdbflow.db;
 
 import android.content.Context;
 import android.os.AsyncTask;
+
+import com.example.testdbflow.AppDatabase;
+import com.example.testdbflow.MainApp;
 import com.tencent.mars.xlog.Log;
 import net.sqlcipher.database.SQLiteDatabase;
 import java.io.File;

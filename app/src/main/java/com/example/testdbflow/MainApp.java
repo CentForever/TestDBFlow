@@ -1,7 +1,6 @@
 package com.example.testdbflow;
 
 import android.app.Application;
-import android.os.Environment;
 import com.dianping.logan.Logan;
 import com.dianping.logan.LoganConfig;
 import com.dianping.logan.OnLoganProtocolStatus;
@@ -48,21 +47,19 @@ public class MainApp extends Application {
         //https://www.jianshu.com/p/1bee0dc5d0d9
         System.loadLibrary("c++_shared");
         System.loadLibrary("marsxlog");
-        final String SDCARD = getApplicationContext().getExternalFilesDir(null).getAbsolutePath();
-        final String logPath = SDCARD + "/MarsXLog/log";
-
-        // this is necessary, or may crash for SIGBUS
-        final String cachePath = this.getFilesDir() + "/xlog";
+        final String fliesDir = this.getApplicationContext().getExternalFilesDir(null).getAbsolutePath();
+        final String xlogPath = fliesDir + "/MarsXLog/log";
+        final String xlogCachePath = this.getFilesDir() + "/xlog";
 
         //init xlog
         if (BuildConfig.DEBUG) {
-            Xlog.appenderOpen(Xlog.LEVEL_DEBUG, Xlog.AppednerModeAsync, cachePath, logPath, "TestDbFlow", 7, "");
+            Xlog.appenderOpen(Xlog.LEVEL_DEBUG, Xlog.AppednerModeAsync, xlogCachePath, xlogPath, "TestDbFlow", 7, "");
             Xlog.setConsoleLogOpen(true);
-
         } else {
-            Xlog.appenderOpen(Xlog.LEVEL_INFO, Xlog.AppednerModeAsync, cachePath, logPath, "TestDbFlow", 7, "");
+            Xlog.appenderOpen(Xlog.LEVEL_INFO, Xlog.AppednerModeAsync, xlogCachePath, xlogPath, "TestDbFlow", 7, "");
             Xlog.setConsoleLogOpen(false);
         }
         Log.setLogImp(new Xlog());
+        Log.e("SYS_INFO",Log.getSysInfo());
     }
 }

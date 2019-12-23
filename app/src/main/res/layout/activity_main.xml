@@ -50,6 +50,12 @@
         android:text="读取NetSqlcipher加密数据库数据" />
 
 
+    <Button
+        android:id="@+id/buttonZipLogs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="压缩log日志" />
+
     <TextView
         android:id="@+id/resultData"
         android:layout_width="match_parent"

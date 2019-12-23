@@ -17,6 +17,7 @@ import com.raizlabs.android.dbflow.sql.language.Select
 import com.tencent.mars.xlog.Log
 import kotlinx.android.synthetic.main.activity_main.*
 import java.lang.Exception
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         buttonNormalInsetData.setOnClickListener {
             try {
                 val user = User()
-                user.id = System.currentTimeMillis().toInt()
+                user.id = UUID.randomUUID().toString()
                 user.name = System.currentTimeMillis().toString()
                 user.save()
                 Toast.makeText(this, "data created", Toast.LENGTH_SHORT).show()

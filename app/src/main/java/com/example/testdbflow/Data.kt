@@ -5,6 +5,7 @@ import com.raizlabs.android.dbflow.annotation.Column
 import com.raizlabs.android.dbflow.annotation.Database
 import com.raizlabs.android.dbflow.annotation.PrimaryKey
 import com.raizlabs.android.dbflow.annotation.Table
+import java.util.*
 
 @Database(name = AppDatabase.NAME, version = AppDatabase.VERSION)
 object AppDatabase {
@@ -13,4 +14,4 @@ object AppDatabase {
 }
 
 @Table(name = "Users", database = AppDatabase::class)
-data class User(@PrimaryKey var id: Int = 0, @Column var name: String? = null)
+data class User(@PrimaryKey var id: String = UUID.randomUUID().toString(), @Column var name: String? = null)

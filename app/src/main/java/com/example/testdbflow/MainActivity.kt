@@ -26,14 +26,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Logan.w("APP START", 2)
-
+        //initDefaultDb()
         Log.d("APP START","MainActivity")
         buttonNormalInitDb.setOnClickListener {
-            FlowManager.init(FlowConfig.Builder(this)
-                 .openDatabasesOnInit(true)
-                .addDatabaseConfig(DatabaseConfig.builder(AppDatabase::class.java)
-                    .databaseName(AppDatabase.NAME).build())
-                .build())
+            initDefaultDb()
         }
         buttonNormalInsetData.setOnClickListener {
             try {
@@ -66,7 +62,8 @@ class MainActivity : AppCompatActivity() {
 
         buttonOpenWcdbEncryptedDb.setOnClickListener {
             try {
-                FlowManager.init(FlowConfig.Builder(this)
+                closeDb()
+                /*FlowManager.init(FlowConfig.Builder(this)
                     .openDatabasesOnInit(true)
                     .addDatabaseConfig(DatabaseConfig.builder(AppDatabase::class.java)
                         .databaseName(WcdbEncryptedDBHelper.DATABASE_NAME)
@@ -78,7 +75,18 @@ class MainActivity : AppCompatActivity() {
                         }
                         .build()
                     )
-                    .build())
+                    .build())*/
+                FlowManager.getDatabase(AppDatabase::class.java)
+                    .reopen(DatabaseConfig.builder(AppDatabase::class.java)
+                        .databaseName(WcdbEncryptedDBHelper.DATABASE_NAME)
+                        .openHelper { databaseDefinition, helperListener ->
+                            SQLCipherHelperImpl(
+                                databaseDefinition,
+                                helperListener
+                            )
+                        }
+                        .build()
+                    )
 
                 val datas = Select().from(User::class.java).list
                 resultData.text= "WCDB Encrypted result:\n$datas"
@@ -98,7 +106,19 @@ class MainActivity : AppCompatActivity() {
 
         buttonOpenNetSqlcipherEncryptedDb.setOnClickListener {
             try {
-                FlowManager.init(FlowConfig.Builder(this)
+                closeDb()
+                FlowManager.getDatabase(AppDatabase::class.java)
+                    .reopen(DatabaseConfig.builder(AppDatabase::class.java)
+                        .databaseName(NetSqlcipherHelper.DATABASE_NAME)
+                        .openHelper { databaseDefinition, helperListener ->
+                            SQLCipherHelperImpl(
+                                databaseDefinition,
+                                helperListener
+                            )
+                        }
+                        .build()
+                    )
+                /*FlowManager.init(FlowConfig.Builder(this)
                     .openDatabasesOnInit(true)
                     .addDatabaseConfig(DatabaseConfig.builder(AppDatabase::class.java)
                         .databaseName(NetSqlcipherHelper.DATABASE_NAME)
@@ -110,7 +130,7 @@ class MainActivity : AppCompatActivity() {
                         }
                         .build()
                     )
-                    .build())
+                    .build())*/
 
                 val datas = Select().from(User::class.java).list
                 resultData.text= "NetSqlcipher Encrypted result:\n$datas"
@@ -128,6 +148,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun initDefaultDb() {
+        FlowManager.init(
+            FlowConfig.Builder(this)
+                .openDatabasesOnInit(true)
+                .addDatabaseConfig(
+                    DatabaseConfig.builder(AppDatabase::class.java)
+                        .databaseName(AppDatabase.NAME).build()
+                )
+                .build()
+        )
+    }
+
     private fun closeDb(){
         try {
             FlowManager.getDatabase(AppDatabase::class.java).close()
@@ -139,5 +171,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        closeDb()
     }
 }

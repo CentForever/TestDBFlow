@@ -4,6 +4,7 @@ import android.app.Application;
 import com.dianping.logan.Logan;
 import com.dianping.logan.LoganConfig;
 import com.dianping.logan.OnLoganProtocolStatus;
+import com.raizlabs.android.dbflow.config.FlowManager;
 import com.tencent.mars.xlog.Log;
 import com.tencent.mars.xlog.Xlog;
 
@@ -40,7 +41,7 @@ public class MainApp extends Application {
                 Log.d(TAG, "clogan > cmd : " + cmd + " | " + "code : " + code);
             }
         });
-
+        FlowManager.init(this);
     }
 
     private void initMarsXLog(){

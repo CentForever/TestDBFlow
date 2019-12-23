@@ -64,9 +64,21 @@ class MainActivity : AppCompatActivity() {
         buttonOpenWcdbEncryptedDb.setOnClickListener {
             try {
                 closeDb()
-                FlowManager.getDatabase(AppDatabase::class.java)
+                /*FlowManager.getDatabase(AppDatabase::class.java)
                     .reopen(DatabaseConfig.builder(AppDatabase::class.java)
-                        .databaseName(WcdbEncryptedDBHelper.DATABASE_NAME)
+                        .databaseName("encrypted")
+                        .openHelper { databaseDefinition, helperListener ->
+                            SQLCipherHelperImpl(
+                                databaseDefinition,
+                                helperListener
+                            )
+                        }
+                        .build()
+                    )*/
+                FlowManager.init(FlowConfig.Builder(this)
+                    .openDatabasesOnInit(true)
+                    .addDatabaseConfig(DatabaseConfig.builder(AppDatabase::class.java)
+                        .databaseName("encrypted")
                         .openHelper { databaseDefinition, helperListener ->
                             SQLCipherHelperImpl(
                                 databaseDefinition,
@@ -75,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                         }
                         .build()
                     )
-
+                    .build())
                 val db=FlowManager.getDatabase(AppDatabase::class.java).writableDatabase
                 val datas=SQLite.select().from(User::class.java).queryList(db)
                 resultData.text= "WCDB Encrypted ${FlowManager.getDatabase(AppDatabase::class.java).databaseName} result:\n$datas"
@@ -96,9 +108,21 @@ class MainActivity : AppCompatActivity() {
         buttonOpenNetSqlcipherEncryptedDb.setOnClickListener {
             try {
                 closeDb()
-                FlowManager.getDatabase(AppDatabase::class.java)
+                /*FlowManager.getDatabase(AppDatabase::class.java)
                     .reopen(DatabaseConfig.builder(AppDatabase::class.java)
-                        .databaseName(NetSqlcipherHelper.DATABASE_NAME)
+                        .databaseName("NetSqlcipher")
+                        .openHelper { databaseDefinition, helperListener ->
+                            SQLCipherHelperImpl(
+                                databaseDefinition,
+                                helperListener
+                            )
+                        }
+                        .build()
+                    )*/
+                FlowManager.init(FlowConfig.Builder(this)
+                    .openDatabasesOnInit(true)
+                    .addDatabaseConfig(DatabaseConfig.builder(AppDatabase::class.java)
+                        .databaseName("NetSqlcipher")
                         .openHelper { databaseDefinition, helperListener ->
                             SQLCipherHelperImpl(
                                 databaseDefinition,
@@ -107,6 +131,7 @@ class MainActivity : AppCompatActivity() {
                         }
                         .build()
                     )
+                    .build())
                 val db=FlowManager.getDatabase(AppDatabase::class.java).writableDatabase
                 val datas=SQLite.select().from(User::class.java).queryList(db)
                 resultData.text= "NetSqlcipher Encrypted ${FlowManager.getDatabase(AppDatabase::class.java).databaseName} result:\n$datas"

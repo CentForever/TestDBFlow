@@ -21,7 +21,7 @@ public class WcdbEncryptedDBHelper extends SQLiteOpenHelper {
 
     private static final String TAG = "WcdbEncryptedDBHelper";
 
-    public static final String DATABASE_NAME = "encrypted";
+    public static final String DATABASE_NAME = "encrypted.db";
     public static final String OLD_DATABASE_NAME = "plain-text";
     public static final int DATABASE_VERSION = 2;
 
@@ -49,7 +49,7 @@ public class WcdbEncryptedDBHelper extends SQLiteOpenHelper {
     public WcdbEncryptedDBHelper(Context context, String passphrase) {
 
         // Call "encrypted" version of the superclass constructor.
-        super(context, DATABASE_NAME+".db", passphrase.getBytes(), CIPHER_SPEC, null, DATABASE_VERSION,
+        super(context, DATABASE_NAME, passphrase.getBytes(), CIPHER_SPEC, null, DATABASE_VERSION,
                 ERROR_HANDLER);
         // Save context object for later use.
         mContext = context;

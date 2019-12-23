@@ -35,15 +35,24 @@ class MainActivity : AppCompatActivity() {
                 .build())
         }
         buttonNormalInsetData.setOnClickListener {
-            val user = User()
-            user.id = System.currentTimeMillis().toInt()
-            user.name = System.currentTimeMillis().toString()
-            user.save()
-            Toast.makeText(this, "data created", Toast.LENGTH_SHORT).show()
+            try {
+                val user = User()
+                user.id = System.currentTimeMillis().toInt()
+                user.name = System.currentTimeMillis().toString()
+                user.save()
+                Toast.makeText(this, "data created", Toast.LENGTH_SHORT).show()
+            }catch (e:Exception){
+                resultData.text= "Exception result:\n${e.message}"
+            }
         }
 
-        buttonNormalReadData.setOnClickListener { val datas = Select().from(User::class.java).list
-            resultData.text= "result:\n$datas"
+        buttonNormalReadData.setOnClickListener {
+            try {
+                val datas = Select().from(User::class.java).list
+                resultData.text = "result:\n$datas"
+            }catch (e:Exception){
+                resultData.text= "Exception result:\n${e.message}"
+            }
         }
         buttonWcdbEncryptedDb.setOnClickListener {
             closeDb()
@@ -103,7 +112,7 @@ class MainActivity : AppCompatActivity() {
             FlowManager.getDatabase(AppDatabase::class.java).close()
         }catch (e:Exception){
             e.printStackTrace()
-            Logan.w(e.message, 2)
+            resultData.text= "Exception result:\n${e.message}"
         }
     }
 

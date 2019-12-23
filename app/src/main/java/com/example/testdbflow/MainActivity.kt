@@ -56,55 +56,75 @@ class MainActivity : AppCompatActivity() {
             }
         }
         buttonWcdbEncryptedDb.setOnClickListener {
-            closeDb()
-            WcdbEncryptedDBHelper.test()
+            try {
+                closeDb()
+                WcdbEncryptedDBHelper.test()
+            }catch (e:Exception){
+                resultData.text= "Exception result:\n${e.message}"
+            }
         }
 
         buttonOpenWcdbEncryptedDb.setOnClickListener {
-            FlowManager.init(FlowConfig.Builder(this)
-                .openDatabasesOnInit(true)
-                .addDatabaseConfig(DatabaseConfig.builder(AppDatabase::class.java)
-                    .databaseName(WcdbEncryptedDBHelper.DATABASE_NAME)
-                    .openHelper { databaseDefinition, helperListener ->
-                        SQLCipherHelperImpl(
-                            databaseDefinition,
-                            helperListener
-                        )
-                    }
-                    .build()
+            try {
+                FlowManager.init(FlowConfig.Builder(this)
+                    .openDatabasesOnInit(true)
+                    .addDatabaseConfig(DatabaseConfig.builder(AppDatabase::class.java)
+                        .databaseName(WcdbEncryptedDBHelper.DATABASE_NAME)
+                        .openHelper { databaseDefinition, helperListener ->
+                            SQLCipherHelperImpl(
+                                databaseDefinition,
+                                helperListener
+                            )
+                        }
+                        .build()
                     )
-                .build())
+                    .build())
 
-            val datas = Select().from(User::class.java).list
-            resultData.text= "Encrypted result:\n$datas"
+                val datas = Select().from(User::class.java).list
+                resultData.text= "WCDB Encrypted result:\n$datas"
+            }catch (e:Exception){
+                resultData.text= "Exception result:\n${e.message}"
+            }
         }
 
         buttonNetSqlcipherEncryptedDb.setOnClickListener {
-            closeDb()
-            NetSqlcipherHelper.test()
+            try {
+                closeDb()
+                NetSqlcipherHelper.test()
+            }catch (e:Exception){
+                resultData.text= "Exception result:\n${e.message}"
+            }
         }
 
         buttonOpenNetSqlcipherEncryptedDb.setOnClickListener {
-            FlowManager.init(FlowConfig.Builder(this)
-                .openDatabasesOnInit(true)
-                .addDatabaseConfig(DatabaseConfig.builder(AppDatabase::class.java)
-                    .databaseName(NetSqlcipherHelper.DATABASE_NAME)
-                    .openHelper { databaseDefinition, helperListener ->
-                        SQLCipherHelperImpl(
-                            databaseDefinition,
-                            helperListener
-                        )
-                    }
-                    .build()
-                )
-                .build())
+            try {
+                FlowManager.init(FlowConfig.Builder(this)
+                    .openDatabasesOnInit(true)
+                    .addDatabaseConfig(DatabaseConfig.builder(AppDatabase::class.java)
+                        .databaseName(NetSqlcipherHelper.DATABASE_NAME)
+                        .openHelper { databaseDefinition, helperListener ->
+                            SQLCipherHelperImpl(
+                                databaseDefinition,
+                                helperListener
+                            )
+                        }
+                        .build()
+                    )
+                    .build())
 
-            val datas = Select().from(User::class.java).list
-            resultData.text= "Encrypted result:\n$datas"
+                val datas = Select().from(User::class.java).list
+                resultData.text= "NetSqlcipher Encrypted result:\n$datas"
+            }catch (e:Exception){
+                resultData.text= "Exception result:\n${e.message}"
+            }
         }
 
         buttonZipLogs.setOnClickListener {
-            ZipLogFile.zipLogFiles(this)
+            try {
+                ZipLogFile.test()
+            }catch (e:Exception){
+                resultData.text= "Exception result:\n${e.message}"
+            }
         }
     }
 

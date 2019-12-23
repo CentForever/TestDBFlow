@@ -1,9 +1,14 @@
 package com.example.testdbflow.xlog;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.text.TextUtils;
 
+import com.example.testdbflow.MainApp;
+import com.example.testdbflow.db.WcdbEncryptedDBHelper;
 import com.tencent.mars.xlog.Log;
+import com.tencent.wcdb.database.SQLiteDatabase;
+import com.tencent.wcdb.database.SQLiteOpenHelper;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -51,6 +56,26 @@ public class ZipLogFile {
             }
         }
         return null;
+    }
+
+    public static void test(){
+        new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected void onPreExecute() {
+                Log.e("mgg","加密开始");
+            }
+
+            @Override
+            protected Boolean doInBackground(Void... params) {
+                ZipLogFile.zipLogFiles(MainApp.application);
+                return true;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean cursor) {
+                Log.e("mgg","加密完成");
+            }
+        }.execute();
     }
 
 

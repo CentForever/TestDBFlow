@@ -1,8 +1,6 @@
 package com.example.testdbflow.db;
 
 import android.content.Context;
-
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -15,6 +13,7 @@ import com.raizlabs.android.dbflow.structure.database.DatabaseHelperDelegate;
 import com.raizlabs.android.dbflow.structure.database.DatabaseHelperListener;
 import com.raizlabs.android.dbflow.structure.database.DatabaseWrapper;
 import com.raizlabs.android.dbflow.structure.database.OpenHelper;
+import com.tencent.mars.xlog.Log;
 
 import net.sqlcipher.DatabaseErrorHandler;
 import net.sqlcipher.database.SQLiteDatabase;
@@ -35,7 +34,7 @@ public abstract class SQLCipherHelperEx extends SQLiteOpenHelper implements Open
                 , new SQLiteDatabaseHook() {
                     @Override
                     public void preKey(SQLiteDatabase database) {
-
+                        Log.e("SQLiteDatabaseHook()",database.getPath());
                     }
 
                     @Override

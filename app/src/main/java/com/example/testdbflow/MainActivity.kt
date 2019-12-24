@@ -27,18 +27,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Logan.w("APP START", 2)
-        initDefaultDb()
+        //initDefaultDb()
         Log.d("APP START","MainActivity")
         buttonNormalInitDb.setOnClickListener {
             initDefaultDb()
         }
         buttonNormalInsetData.setOnClickListener {
             try {
+                //closeDb()
                 val user = User()
                 user.id = UUID.randomUUID().toString()
                 user.name = System.currentTimeMillis().toString()
                 user.save()
                 Toast.makeText(this, "data created", Toast.LENGTH_SHORT).show()
+                resultData.text= "DB：${FlowManager.getDatabase(AppDatabase::class.java).databaseName} "
             }catch (e:Exception){
                 resultData.text= "Exception result:\n${e.message}"
             }
@@ -46,8 +48,10 @@ class MainActivity : AppCompatActivity() {
 
         buttonNormalReadData.setOnClickListener {
             try {
-                val datas = Select().from(User::class.java).list
-                resultData.text = "result:\n$datas"
+                //closeDb()
+                val db=FlowManager.getDatabase(AppDatabase::class.java).writableDatabase
+                val datas=SQLite.select().from(User::class.java).queryList(db)
+                resultData.text= "${FlowManager.getDatabase(AppDatabase::class.java).databaseName} result:\n$datas"
             }catch (e:Exception){
                 resultData.text= "Exception result:\n${e.message}"
             }
@@ -76,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                         .build()
                     )*/
                 FlowManager.init(FlowConfig.Builder(this)
-                    .openDatabasesOnInit(true)
+                    //.openDatabasesOnInit(true)
                     .addDatabaseConfig(DatabaseConfig.builder(AppDatabase::class.java)
                         .databaseName("encrypted")
                         .openHelper { databaseDefinition, helperListener ->
@@ -120,7 +124,7 @@ class MainActivity : AppCompatActivity() {
                         .build()
                     )*/
                 FlowManager.init(FlowConfig.Builder(this)
-                    .openDatabasesOnInit(true)
+                    //.openDatabasesOnInit(true)
                     .addDatabaseConfig(DatabaseConfig.builder(AppDatabase::class.java)
                         .databaseName("NetSqlcipher")
                         .openHelper { databaseDefinition, helperListener ->
@@ -152,7 +156,7 @@ class MainActivity : AppCompatActivity() {
     private fun initDefaultDb() {
         FlowManager.init(
             FlowConfig.Builder(this)
-                .openDatabasesOnInit(true)
+                //.openDatabasesOnInit(true)
                 .addDatabaseConfig(
                     DatabaseConfig.builder(AppDatabase::class.java)
                         .databaseName(WcdbEncryptedDBHelper.OLD_DATABASE_NAME).build()
@@ -163,7 +167,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun closeDb(){
         try {
-            FlowManager.getDatabase(AppDatabase::class.java).close()
+            FlowManager.close()
         }catch (e:Exception){
             e.printStackTrace()
             resultData.text= "Exception result:\n${e.message}"

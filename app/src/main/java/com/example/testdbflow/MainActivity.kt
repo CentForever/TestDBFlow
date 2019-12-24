@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Logan.w("APP START", 2)
-        //initDefaultDb()
         Log.d("APP START","MainActivity")
         buttonNormalInitDb.setOnClickListener {
             initDefaultDb()
@@ -68,17 +67,6 @@ class MainActivity : AppCompatActivity() {
         buttonOpenWcdbEncryptedDb.setOnClickListener {
             try {
                 closeDb()
-                /*FlowManager.getDatabase(AppDatabase::class.java)
-                    .reopen(DatabaseConfig.builder(AppDatabase::class.java)
-                        .databaseName("encrypted")
-                        .openHelper { databaseDefinition, helperListener ->
-                            SQLCipherHelperImpl(
-                                databaseDefinition,
-                                helperListener
-                            )
-                        }
-                        .build()
-                    )*/
                 FlowManager.init(FlowConfig.Builder(this)
                     //.openDatabasesOnInit(true)
                     .addDatabaseConfig(DatabaseConfig.builder(AppDatabase::class.java)
@@ -112,17 +100,6 @@ class MainActivity : AppCompatActivity() {
         buttonOpenNetSqlcipherEncryptedDb.setOnClickListener {
             try {
                 closeDb()
-                /*FlowManager.getDatabase(AppDatabase::class.java)
-                    .reopen(DatabaseConfig.builder(AppDatabase::class.java)
-                        .databaseName("NetSqlcipher")
-                        .openHelper { databaseDefinition, helperListener ->
-                            SQLCipherHelperImpl(
-                                databaseDefinition,
-                                helperListener
-                            )
-                        }
-                        .build()
-                    )*/
                 FlowManager.init(FlowConfig.Builder(this)
                     //.openDatabasesOnInit(true)
                     .addDatabaseConfig(DatabaseConfig.builder(AppDatabase::class.java)
